@@ -1,4 +1,5 @@
 let cursorColor = "rgb(255,255,255)";
+let cursorDiameter = 30;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -7,9 +8,12 @@ function setup() {
 
 function draw() {
   background(150, 140, 220);
+
+  cursorDiameter = map(mouseX, 0, width, 10, 500);
+
   fill(cursorColor);
   noStroke();
-  square(mouseX, mouseY, 30);
+  square(mouseX, mouseY, cursorDiameter);
 }
 
 function mousePressed() {
