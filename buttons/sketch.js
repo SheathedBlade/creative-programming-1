@@ -1,4 +1,4 @@
-let textButton, radioButton, dropDown, checkBox;
+let textButton, radioButton, dropDown, checkBox, colorPicker;
 let bgColor = "rgb(0,150,255)";
 let cursorSize = 50;
 let angle = 0;
@@ -43,6 +43,9 @@ function setup() {
 
   checkBox = createCheckbox("Rotate cursor", false);
   checkBox.changed(toggleCursorRotation).position(width + 20, 140);
+
+  colorPicker = createColorPicker("#ed225d");
+  colorPicker.position(width + 20, 180);
 }
 
 function draw() {
@@ -54,6 +57,8 @@ function draw() {
     angle += radians(2);
     rotate(angle);
   }
+
+  fill(colorPicker.color());
 
   let cursorShape = radioButton.value();
   switch (cursorShape) {
