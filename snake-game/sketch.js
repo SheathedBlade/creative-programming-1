@@ -1,16 +1,17 @@
 let direction = "right";
 let score;
-let bodyCount = 5,
+let bodyCount = 10,
   step = 10;
 
-let startX = 20,
+let startX = 10,
   startY = 250;
 
 let fruitX = 0,
   fruitY = 0;
 
 let segmentX = [],
-  segmentY = [];
+  segmentY = [],
+  segmentC = [];
 
 function generateColor() {
   let r = parseInt(random(256));
@@ -37,6 +38,7 @@ function setup() {
   for (let i = 0; i < bodyCount; i++) {
     segmentX.push(startX + i * step);
     segmentY.push(startY);
+    segmentC.push(generateColor());
   }
 }
 
@@ -44,7 +46,7 @@ function draw() {
   background(0);
 
   for (let i = 0; i < bodyCount - 1; i++) {
-    generateSegment(segmentX[i], segmentY[i], 10);
+    generateSegment(segmentX[i], segmentY[i], 10, segmentC[i]);
   }
 
   // Checkers
@@ -53,8 +55,8 @@ function draw() {
   checkFruit();
 }
 
-function generateSegment(x, y, radius) {
-  //fill(generateColor());
+function generateSegment(x, y, radius, c) {
+  fill(c);
   circle(x, y, radius);
 }
 
@@ -84,7 +86,31 @@ function updateSnakePosition() {
   }
 }
 
-function checkGameState() {}
+function checkGameState() {
+  // Check if snake either hit edge of canvas or hit itself
+  if (
+    segmentX[segmentX.length - 1] > width ||
+    segmentX[segmentX.length - 1] < 0 ||
+    segmentY[segmentY.length - 1] > height ||
+    segmentY[segmentY.length - 1] < 0 ||
+    checkSnakeCollision()
+  ) {
+    noLoop();
+    const scoreValue = parseInt(score.html().substring(7));
+    score.html("Game Over! Your final score is: " + scoreValue + "!");
+  }
+}
+
+function checkSnakeCollision() {
+  const snakeHeadX = segmentX[segmentX.length - 1];
+  const snakeHeadY = segmentY[segmentY.length - 1];
+
+  for (let i = 0; i < segmentX.length - 1; i++) {
+    if (segmentX[i] === snakeHeadX && segmentY[i] === snakeHeadY) return true;
+  }
+
+  return false;
+}
 
 function checkFruit() {}
 
