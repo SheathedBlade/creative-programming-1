@@ -40,13 +40,15 @@ function setup() {
     segmentY.push(startY);
     segmentC.push(generateColor());
   }
+
+  updateFruitSpawn();
 }
 
 function draw() {
   background(0);
 
   for (let i = 0; i < bodyCount - 1; i++) {
-    generateSegment(segmentX[i], segmentY[i], 10, segmentC[i]);
+    generateBody(segmentX[i], segmentY[i], step, segmentC[i]);
   }
 
   // Checkers
@@ -55,7 +57,7 @@ function draw() {
   checkFruit();
 }
 
-function generateSegment(x, y, radius, c) {
+function generateBody(x, y, radius, c) {
   fill(c);
   circle(x, y, radius);
 }
@@ -112,9 +114,29 @@ function checkSnakeCollision() {
   return false;
 }
 
-function checkFruit() {}
+function checkFruit() {
+  // Spawns fruit and checks if fruit is obtained
+  // If so, add to snake, update score accordingly
+  generateBody(fruitX, fruitY, step, color(255));
+  if (
+    segmentX[segmentX.length - 1] === fruitX &&
+    segmentY[segmentY.length - 1] === fruitY
+  ) {
+    const prevScore = parseInt(score.html().substring(7));
+    score.html("Score: " + (prevScore + 1));
+    segmentX.unshift(segmentX[0]);
+    segmentY.unshift(segmentY[0]);
+    segmentC.unshift(generateColor());
+    bodyCount++;
+    updateFruitSpawn();
+  }
+}
 
-function updateFruitSpawn() {}
+function updateFruitSpawn() {
+  // Makes it so fruit stay aligned with grid that snake takes
+  fruitX = floor(random(10, (width - 100) / 10)) * step;
+  fruitY = floor(random(10, (height - 100) / 10)) * step;
+}
 
 function keyPressed() {
   switch (keyCode) {
