@@ -27,6 +27,8 @@ function resetGame() {
   segmentX = [];
   segmentY = [];
   segmentC = [];
+  bodyCount = 10;
+  direction = "right";
   score.html("Score: 0");
 
   // Create snake
@@ -35,14 +37,12 @@ function resetGame() {
     segmentY.push(startY);
     segmentC.push(generateColor());
   }
-  bodyCount = 10;
-  direction = "right";
 
   // Reset button
   resetBtn.hide();
 
-  loop();
   updateFruitSpawn();
+  loop();
 }
 
 function hoverButton() {
@@ -90,10 +90,10 @@ function setup() {
 function draw() {
   background(0);
 
-  for (let i = 0; i < bodyCount - 1; i++) {
+  for (let i = 0; i < bodyCount; i++) {
     generateBody(segmentX[i], segmentY[i], step, segmentC[i]);
   }
-
+  console.log(segmentX);
   // Checkers
   updateSnakePosition();
   checkGameState();
