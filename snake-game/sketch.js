@@ -93,7 +93,7 @@ function draw() {
   for (let i = 0; i < bodyCount; i++) {
     generateBody(segmentX[i], segmentY[i], step, segmentC[i]);
   }
-  console.log(segmentX);
+
   // Checkers
   updateSnakePosition();
   checkGameState();
