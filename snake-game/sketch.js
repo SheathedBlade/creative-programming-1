@@ -1,4 +1,6 @@
 let direction = "right";
+let instructions;
+let resetBtn;
 let score;
 let bodyCount = 10,
   step = 10;
@@ -21,7 +23,41 @@ function generateColor() {
   return color(r, g, b);
 }
 
+function resetGame() {
+  segmentX = [];
+  segmentY = [];
+  segmentC = [];
+  score.html("Score: 0");
+
+  // Create snake
+  for (let i = 0; i < bodyCount; i++) {
+    segmentX.push(startX + i * step);
+    segmentY.push(startY);
+    segmentC.push(generateColor());
+  }
+  bodyCount = 10;
+  direction = "right";
+
+  // Reset button
+  resetBtn.hide();
+
+  loop();
+  updateFruitSpawn();
+}
+
+function hoverButton() {
+  resetBtn.style("background-color", "#f792a3");
+}
+
+function unhoverButton() {
+  resetBtn.style("background-color", "#ff4d6a");
+}
+
 function setup() {
+  createCanvas(600, 600);
+  noStroke();
+  frameRate(20);
+
   // Create scoreboard
   score = createDiv("Score: 0");
   score.id = "scoreboard";
@@ -30,18 +66,25 @@ function setup() {
   score.style("font-family", "Quicksand");
   score.style("font-weight", "bold");
 
-  createCanvas(600, 600);
-  noStroke();
-  frameRate(20);
+  // Create directions
+  instructions = createDiv("WASD for movement");
+  instructions.id = "instructions";
+  instructions.position(10, 570);
+  instructions.style("color", "white");
+  instructions.style("font-family", "Quicksand");
 
-  // Create snake
-  for (let i = 0; i < bodyCount; i++) {
-    segmentX.push(startX + i * step);
-    segmentY.push(startY);
-    segmentC.push(generateColor());
-  }
+  // Create reset game button
+  resetBtn = createButton("Play Again");
+  resetBtn.mousePressed(resetGame).position(width + 20, 20);
+  resetBtn.style("font-family", "Quicksand");
+  resetBtn.style("border", "none");
+  resetBtn.style("padding", "15px");
+  resetBtn.style("color", "white");
+  resetBtn.style("text-decoration", "none");
+  resetBtn.style("background-color", "#ff4d6a");
+  resetBtn.mouseOver(hoverButton).mouseOut(unhoverButton);
 
-  updateFruitSpawn();
+  resetGame();
 }
 
 function draw() {
@@ -100,6 +143,7 @@ function checkGameState() {
     noLoop();
     const scoreValue = parseInt(score.html().substring(7));
     score.html("Game Over! Your final score is: " + scoreValue + "!");
+    resetBtn.show();
   }
 }
 
