@@ -10,7 +10,7 @@ function setup() {
 function draw() {
   background(50);
 
-  let from = color(255, 150, 0);
+  let from = color(50, 250, 10);
   let to = color(0, 150, 255);
   let pct = map(x, radius, width - radius, 0, 1);
   let c = lerpColor(from, to, pct);
