@@ -1,7 +1,7 @@
-let showIntro = true;
+let showIntro = false;
 let showScene1 = false;
 let showScene2 = false;
-let showScene3 = false;
+let showScene3 = true;
 let showEnding = false;
 let currTime;
 
@@ -145,19 +145,21 @@ function scene2() {}
 function scene3() {
   noFill();
   stroke(255);
+  raining(rain, gravity);
 
   translate(width / 2, height / 2);
 
   for (let i = 0; i < 200; i++) {
     push();
-    rotate(sin(frameCount + i) * 100);
+    rotate(sin(frameCount + i) * PI * 100);
 
     let r = map(sin(frameCount), -1, 1, 50, 100);
     let g = map(cos(frameCount / 2), -1, 1, 75, 150);
     let b = map(sin(frameCount / 4), -1, 1, 160, 255);
 
     stroke(r, g, b);
-    rect(0, 0, 600 - i * 3, 600 - i * 3, 200 - i);
+    strokeWeight(1);
+    rect(0, 100, 700 - i * 3.5, 700 - i * 3.5, 200 - i);
     pop();
   }
 }
