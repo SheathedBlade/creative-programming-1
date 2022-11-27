@@ -1,68 +1,20 @@
-let showIntro = false;
+let showIntro = true;
 let showScene1 = false;
 let showScene2 = false;
-let showScene3 = true;
+let showScene3 = false;
 let showEnding = false;
-let currTime, startTime;
+let currTime, startTime, tEllipse;
+let speedX = 5,
+  speedX2 = 2;
+let easeX, easeX2;
+let lighthouse;
 
 let maxSteps = 40;
 let gravity;
 let rain = [];
 let discharges, steps, effectSize, center, canvasSize;
 
-let bgMusic;
-
-// function Discharge(pos, v0, childrenSpawnProbability) {
-//   this.v0 = v0;
-//   this.pos = [pos.copy()];
-//   this.children = [];
-//   this.childrenSpawnProbability = childrenSpawnProbability;
-
-//   this.update = function (stepI) {
-//     let p0 = this.pos[this.pos.length - 1];
-//     for (let i = 0; i < stepI; i++) {
-//       let p1 = p5.Vector.add(p0, p5.Vector.mult(v0, 5));
-//       v0.add(p5.Vector.random2D().mult(0.44));
-//       v0.normalize();
-
-//       this.pos.push(p1);
-//       p0 = p1;
-
-//       let chSpawnProb =
-//         this.childrenSpawnProbability *
-//         (0.25 + (0.75 * this.pos.length) / maxSteps);
-//       if (random(0.0, 1.0) < chSpawnProb) {
-//         let d = new Discharge(p0.copy(), v0.copy(), chSpawnProb);
-//         this.children.push(d);
-//       }
-//     }
-
-//     for (let i = 0; i < this.children.length; i++) {
-//       this.children[i].update(stepI);
-//     }
-//   };
-
-//   this.draw = function () {
-//     for (let i = 1; i < this.pos.length; i++) {
-//       let p0 = this.pos[i - 1];
-//       let p1 = this.pos[i];
-//       let u = p0.dist(center) / effectSize;
-//       strokeWeight(3 - 2 * u);
-//       line(p0.x, p0.y, p1.x, p1.y);
-//     }
-
-//     for (let i = 0; i < this.children.length; i++) {
-//       this.children[i].draw();
-//     }
-//   };
-
-//   this.done = function () {
-//     return (
-//       this.pos.length > maxSteps ||
-//       this.pos[this.pos.length - 1].dist(center) > effectSize
-//     );
-//   };
-// }
+let bgMusic, arcticWind, horrorWind;
 
 function raining(array, gravity) {
   array.forEach((drop) => {
@@ -78,23 +30,35 @@ function lightningBGFlash() {
 }
 
 function updateScene() {
-  if (showScene3 && frameCount % 60 == 0) startTime++;
-  if (showScene3 && (currTime - startTime * 1000) / 1000 >= 15) {
-    showScene3 = false;
-    showEnding = true;
+  if (millis() > currTime + 1000 && (!showIntro || !showEnding)) {
+    startTime++;
+    currTime = millis();
+  }
+  if (startTime >= 20) {
+    if (showScene1) {
+      showScene1 = false;
+      showScene2 = true;
+    } else if (showScene2) {
+      showScene2 = false;
+      showScene3 = true;
+    } else if (showScene3) {
+      showScene3 = false;
+      showEnding = true;
+    }
+    startTime = 0;
   }
 }
 
 function preload() {
   soundFormats("mp3", "wav");
   bgMusic = loadSound("./assets/rainLoop.wav");
+  arcticWind = loadSound("./assets/arctic_wind.wav");
+  horrorWind = loadSound("./assets/horror_wind.wav");
+  lighthouse = loadImage("./assets/lighthouse.png");
 }
 
 function setup() {
   canvasSize = createVector(windowWidth, windowHeight);
-  // center = p5.Vector.div(canvasSize, 2);
-  // effectSize = 400;
-  // discharges = [];
 
   createCanvas(canvasSize.x, canvasSize.y);
   noSmooth();
@@ -102,6 +66,9 @@ function setup() {
   textFont("Trebuchet MS");
   currTime = millis();
   startTime = 0;
+  tEllipse = 0;
+  easeX = width / 2;
+  easeX2 = width / 2;
   angleMode(DEGREES);
   rectMode(CENTER);
 
@@ -115,8 +82,7 @@ function draw() {
 
   if (showIntro) intro();
   else {
-    currTime = millis();
-
+    updateScene();
     if (!showEnding || !showIntro) {
       lightningBGFlash();
       raining(rain, gravity);
@@ -125,9 +91,19 @@ function draw() {
         bgMusic.setVolume(0.2);
         bgMusic.loop();
       }
+
+      if (arcticWind.isLoaded() && !arcticWind.isPlaying() && showScene2) {
+        arcticWind.setVolume(0.4);
+        arcticWind.loop();
+      }
+
+      if (horrorWind.isLoaded() && !horrorWind.isPlaying() && showScene3) {
+        arcticWind.stop();
+        horrorWind.setVolume(0.7);
+        horrorWind.loop();
+      }
     }
 
-    updateScene();
     if (showScene1) scene1();
     else if (showScene2) scene2();
     else if (showScene3) scene3();
@@ -147,34 +123,77 @@ function keyPressed() {
 
 function intro() {
   if (bgMusic.isPlaying()) bgMusic.stop();
-  background(50, 75, 165, 0.8);
   fill(255);
   noStroke();
   textSize(100);
   textAlign(CENTER, CENTER);
-  text("Rainy Night", width / 2, height / 2);
+  text("Lost at Sea", width / 2, height / 2);
   textSize(24);
   text("[Press Any Key to Start]", width / 2, height - height / 4);
 }
 
-// Start of thunderstorm
+// Start of thunderstorm / waves
 function scene1() {
-  // if (random(0.0, 1.0) < 0.1) {
-  //   let c = createVector(200, height - 100);
-  //   let d = new Discharge(c.copy(), p5.Vector.random2D(), 0.1);
-  //   discharges.push(d);
-  // }
-  // discharges = discharges.filter((elem) => !elem.done());
-  // for (let i = 0; i < discharges.length; i++) discharges[i].update(8 - (i % 4));
-  // background(50, 75, 165, 0.8);
-  // stroke(255);
-  // for (let i = 0; i < discharges.length; i++) {
-  //   discharges[i].draw();
-  // }
+  const xPos = 0,
+    yPos = 0;
+  for (let x = 0; x <= width; x += 30) {
+    for (let y = 0; y <= height; y += 30) {
+      const xAngle = map(xPos, 0, width, -4 * PI, 4 * PI, true);
+      const yAngle = map(yPos, 0, height, -4 * PI, 4 * PI, true);
+      const angle = xAngle * (x / width) + yAngle * (y / height);
+
+      const myX = x + 10 * cos(degrees((PI / 2) * tEllipse * angle));
+      const myY = y + 10 * sin(degrees((PI / 2) * tEllipse * angle));
+      fill(30, 60, 90, 90);
+      noStroke();
+      ellipse(myX, myY, 10);
+    }
+  }
+
+  // Adding "boats"
+  let easedX1 = map2(easeX, 0, width, width / 2, width - 100, QUARTIC, BOTH);
+  let easedX2 = map2(easeX, 0, width, width / 5, width / 3, EXPONENTIAL, BOTH);
+  let easedX3 = map2(easeX, 0, width, width / 7, width - 200, QUADRATIC, BOTH);
+  fill(152, 80, 49, 90);
+  rect(easedX1, height / 4, 100, 50);
+  rect(easedX2, height / 3, 100, 50);
+  rect(easedX3, height - 200, 100, 50);
+
+  tEllipse += 0.01;
+  easeX += speedX;
+  if (easeX < 25 || easeX > width - 25) speedX *= -1;
 }
 
-// Falling trees filling up screen as lightning hits
-function scene2() {}
+function flickerLight() {
+  let chance = random(0, 100);
+  if (chance < 4) {
+    fill(223, 179, 48, 190);
+    noStroke();
+    circle(1375, height / 1.65, 100);
+  }
+}
+
+// Flickering lighthouse
+function scene2() {
+  // Flickering light
+  flickerLight();
+
+  // Shifting boat
+  fill(152, 80, 49, 90);
+  noStroke();
+  let eased = map2(easeX2, 0, width / 2, width / 6, width / 2, CUBIC, BOTH);
+  rect(eased, height / 1.1, width / 5, height / 5);
+  easeX2 += speedX2;
+  if (easeX2 < 25 || easeX2 > width / 2) speedX2 *= -1;
+
+  // Background
+  fill(10, 20, 60);
+  noStroke();
+  lighthouse.filter(GRAY);
+  tint(80);
+  image(lighthouse, 1023, height / 1.8);
+  rect(width / 2, height, width, height / 6);
+}
 
 // Whirlpool
 function scene3() {
@@ -228,7 +247,10 @@ function scene3() {
 }
 
 function ending() {
-  background(50, 75, 165, 0.8);
+  if (arcticWind.isPlaying()) arcticWind.stop();
+
+  if (horrorWind.isPlaying()) horrorWind.stop();
+
   fill(255);
   noStroke();
   textSize(100);
