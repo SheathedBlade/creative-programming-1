@@ -14,7 +14,7 @@ let gravity;
 let rain = [];
 let discharges, steps, effectSize, center, canvasSize;
 
-let bgMusic, arcticWind, horrorWind;
+let bgMusic, arcticWind, horrorWind, siren;
 
 function raining(array, gravity) {
   array.forEach((drop) => {
@@ -34,6 +34,11 @@ function updateScene() {
     startTime++;
     currTime = millis();
   }
+
+  if (showScene3 && siren.isLoaded() && !siren.isPlaying() && startTime >= 12) {
+    siren.play();
+  }
+
   if (startTime >= 20) {
     if (showScene1) {
       showScene1 = false;
@@ -54,6 +59,7 @@ function preload() {
   bgMusic = loadSound("./assets/rainLoop.wav");
   arcticWind = loadSound("./assets/arctic_wind.wav");
   horrorWind = loadSound("./assets/horror_wind.wav");
+  siren = loadSound("./assets/siren.wav");
   lighthouse = loadImage("./assets/lighthouse.png");
 }
 
@@ -248,7 +254,6 @@ function scene3() {
 
 function ending() {
   if (arcticWind.isPlaying()) arcticWind.stop();
-
   if (horrorWind.isPlaying()) horrorWind.stop();
 
   fill(255);
