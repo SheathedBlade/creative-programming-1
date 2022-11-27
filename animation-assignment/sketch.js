@@ -3,12 +3,14 @@ let showScene1 = false;
 let showScene2 = false;
 let showScene3 = true;
 let showEnding = false;
-let currTime;
+let currTime, startTime;
 
 let maxSteps = 40;
 let gravity;
 let rain = [];
 let discharges, steps, effectSize, center, canvasSize;
+
+let bgMusic;
 
 // function Discharge(pos, v0, childrenSpawnProbability) {
 //   this.v0 = v0;
@@ -70,6 +72,24 @@ function raining(array, gravity) {
   });
 }
 
+function lightningBGFlash() {
+  let chance = random(0, 100);
+  if (chance < 2) background(50, 85, 165, 100);
+}
+
+function updateScene() {
+  if (showScene3 && frameCount % 60 == 0) startTime++;
+  if (showScene3 && (currTime - startTime * 1000) / 1000 >= 15) {
+    showScene3 = false;
+    showEnding = true;
+  }
+}
+
+function preload() {
+  soundFormats("mp3", "wav");
+  bgMusic = loadSound("./assets/rainLoop.wav");
+}
+
 function setup() {
   canvasSize = createVector(windowWidth, windowHeight);
   // center = p5.Vector.div(canvasSize, 2);
@@ -81,6 +101,7 @@ function setup() {
   strokeCap(SQUARE);
   textFont("Trebuchet MS");
   currTime = millis();
+  startTime = 0;
   angleMode(DEGREES);
   rectMode(CENTER);
 
@@ -93,20 +114,39 @@ function draw() {
   background(10, 20, 30);
 
   if (showIntro) intro();
-  else if (showScene1) scene1();
-  else if (showScene2) scene2();
-  else if (showScene3) scene3();
-  else if (showEnding) ending();
+  else {
+    currTime = millis();
+
+    if (!showEnding || !showIntro) {
+      lightningBGFlash();
+      raining(rain, gravity);
+
+      if (bgMusic.isLoaded() && !bgMusic.isPlaying()) {
+        bgMusic.setVolume(0.2);
+        bgMusic.loop();
+      }
+    }
+
+    updateScene();
+    if (showScene1) scene1();
+    else if (showScene2) scene2();
+    else if (showScene3) scene3();
+    else if (showEnding) ending();
+  }
 }
 
 function keyPressed() {
   if (showIntro) {
     showIntro = false;
     showScene1 = true;
+  } else if (showEnding) {
+    showEnding = false;
+    showIntro = true;
   }
 }
 
 function intro() {
+  if (bgMusic.isPlaying()) bgMusic.stop();
   background(50, 75, 165, 0.8);
   fill(255);
   noStroke();
@@ -117,25 +157,20 @@ function intro() {
   text("[Press Any Key to Start]", width / 2, height - height / 4);
 }
 
-// Thunderstorm
+// Start of thunderstorm
 function scene1() {
   // if (random(0.0, 1.0) < 0.1) {
   //   let c = createVector(200, height - 100);
   //   let d = new Discharge(c.copy(), p5.Vector.random2D(), 0.1);
   //   discharges.push(d);
   // }
-
   // discharges = discharges.filter((elem) => !elem.done());
   // for (let i = 0; i < discharges.length; i++) discharges[i].update(8 - (i % 4));
-
   // background(50, 75, 165, 0.8);
   // stroke(255);
-
   // for (let i = 0; i < discharges.length; i++) {
   //   discharges[i].draw();
   // }
-
-  raining(rain, gravity);
 }
 
 // Falling trees filling up screen as lightning hits
@@ -145,7 +180,6 @@ function scene2() {}
 function scene3() {
   noFill();
   stroke(255);
-  raining(rain, gravity);
 
   translate(width / 2, height / 2);
 
@@ -162,6 +196,44 @@ function scene3() {
     rect(0, 100, 700 - i * 3.5, 700 - i * 3.5, 200 - i);
     pop();
   }
+
+  let ang1 = TWO_PI * noise(0.01 * frameCount + 10);
+  let ang2 = TWO_PI * noise(0.01 * frameCount + 20);
+  let ang3 = degrees(TWO_PI * noise(0.01 * frameCount + 30));
+  let rx = 60 * noise(0.01 * frameCount + 40);
+  let tx = 400 * noise(0.01 * frameCount + 50);
+  let size1 = 200 * noise(0.01 * frameCount + 60);
+  let size2 = 50 * noise(0.01 * frameCount + 60);
+
+  for (let i = 0; i < 8; i++) {
+    push();
+    rotate(degrees(ang1 + (TWO_PI * i) / 8));
+    translate(tx, 0);
+    fill(152, 80, 49, 70);
+    stroke(152, 80, 49, 150);
+    rect(0, 0, size1, size1);
+    for (let j = 0; j < 6; j++) {
+      push();
+      rotate(degrees(ang2 + (TWO_PI * j) / 6));
+      translate(rx, 0);
+      rotate(ang3);
+      fill(13, 195, 19, 40);
+      stroke(13, 195, 19, 100);
+      rect(rx, 0, size2, size2);
+      pop();
+    }
+    translate();
+    pop();
+  }
 }
 
-function ending() {}
+function ending() {
+  background(50, 75, 165, 0.8);
+  fill(255);
+  noStroke();
+  textSize(100);
+  textAlign(CENTER, CENTER);
+  text("Fin", width / 2, height / 2);
+  textSize(24);
+  text("[Press Any Key to Go Back to Start]", width / 2, height - height / 4);
+}
