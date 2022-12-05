@@ -15,6 +15,8 @@ function draw() {
   background(10, 20, 30);
 }
 
+function mainMenu() {}
+
 // Promoted as new chancellor for efforts in eradicating disease
 function intro() {}
 
