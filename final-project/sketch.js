@@ -56,7 +56,7 @@ let urbanistMedium;
 let bgm_1;
 
 // Initialize all necessary images
-let mainMenuImg;
+let mainMenuImg, mood;
 
 // Current character, click counter, current index, and next index
 let currentChar = 0,
@@ -78,20 +78,24 @@ let dialogueIntro = [
     next: 2,
   },
   {
-    text: "You will be passing and enforcing many policies.",
+    text: "As the individual who solved the malignant phenomenon called disease, we have high expectations for you.",
     next: 3,
   },
   {
-    text: "I shall be your assistant in this endeavor.",
+    text: "You will be passing and enforcing many policies.",
     next: 4,
   },
   {
-    text: "All you have to do is decide which path we will embark.",
+    text: "I shall be your assistant in this endeavor.",
     next: 5,
   },
   {
-    text: "Glory to the Global Conglomerate, Chancellor.",
+    text: "All you have to do is decide which path we will embark.",
     next: 6,
+  },
+  {
+    text: "Glory to the Global Conglomerate, Chancellor.",
+    next: 7,
   },
 ];
 
@@ -269,18 +273,425 @@ let dialogueWeek2End = [
     },
     {
       text: "It is perhaps a short-term solution, but it is to make sure everyone is fed.",
-      next: 4,
-    },
-    {
-      text: "I shall contact the Ministry of Nourishment of your decision.",
       next: 5,
     },
     {
-      text: "[Week 2 has ended.]",
+      text: "I shall contact the Ministry of Nourishment of your decision.",
       next: 6,
+    },
+    {
+      text: "[Week 2 has ended.]",
+      next: 7,
     },
   ],
 ];
+
+// Week 3 dialogue - insurgents part 1
+let dialogueWeek3Start = [
+  {
+    text: "Welcome back, Chancellor.",
+    next: 1,
+  },
+  {
+    text: "The Ministry of Security has notified us of a potential insurgent threat.",
+    next: 2,
+  },
+  {
+    text: "That people should be unhappy of how we run things!",
+    next: 3,
+  },
+  {
+    text: "Do they know how taxing it is to meet everyone's needs in a society like this every single day?",
+    next: 4,
+  },
+  {
+    text: "But I digress.",
+    next: 5,
+  },
+];
+
+// Week 3 choice
+let dialogueWeek3Choice = {
+  question: "How should we deal with this imminent threat?",
+  option1: {
+    answer:
+      "Send drones to monitor their actions. They haven't done anything dangerous yet.",
+    score: -30,
+  },
+  option2: {
+    answer:
+      "Order the capture of all suspects involved with this insurgent group.",
+    score: -50,
+  },
+};
+
+// Week 3 ending dialogue
+// An array of arrays, two dialogue trees from two different options
+let dialogueWeek3End = [
+  [
+    {
+      text: "I quite agree, Chancellor.",
+      next: 1,
+    },
+    {
+      text: "They haven't done anything notable yet, other than kicking up some rumors.",
+      next: 2,
+    },
+    {
+      text: "We shall keep a close eye on them.",
+      next: 3,
+    },
+    {
+      text: "I shall notify the Ministry of Security to deploy drones to monitor anyone suspected of involvement.",
+      next: 4,
+    },
+    {
+      text: "[Week 3 has ended.]",
+      next: 5,
+    },
+  ],
+  [
+    {
+      text: "True, we should cut all loose ends and make sure we keep the peace.",
+      next: 1,
+    },
+    {
+      text: "We should nip this issue in the bud before anything catastrophic happens.",
+      next: 2,
+    },
+    {
+      text: "I shall notify the Ministry of Security to order the detainment of those suspected of involvement.",
+      next: 3,
+    },
+    {
+      text: "[Week 3 has ended.]",
+      next: 4,
+    },
+  ],
+];
+
+// Week 4 dialogue - insurgents part 2
+let dialogueWeek4Start = [
+  {
+    text: "Welcome back, Chancellor.",
+    next: 1,
+  },
+  {
+    text: "The Ministry of Security has ascertained the identities of these insurgents.",
+    next: 2,
+  },
+  {
+    text: "They are a group, mostly of young adults, that preach the idea of freedom.",
+    next: 3,
+  },
+  {
+    text: "They say that we are restricting their freedoms for too long.",
+    next: 4,
+  },
+  {
+    text: "Yet, our society can only exist through peace and order.",
+    next: 5,
+  },
+  {
+    text: "Have they not seen the wars and tragedies when we were once divided into myriad nations?",
+    next: 6,
+  },
+  {
+    text: "Now that we have determined that there is a threat upon our society, we have to deal with these insurgents.",
+    next: 7,
+  },
+];
+
+// Week 4 choice
+let dialogueWeek4Choice = {
+  question: "What should we do with these insurgents?",
+  option1: {
+    answer: "Execute them to set an example and remind the people of our past.",
+    score: -80,
+  },
+  option2: {
+    answer: "Order the exile of these insurgents and force them out.",
+    score: -70,
+  },
+};
+
+// Week 4 ending dialogue
+// An array of arrays, two dialogue trees from two different options
+let dialogueWeek4End = [
+  [
+    {
+      text: "This decision should serve to remind people the struggles we had to endure to reach this paradise.",
+      next: 1,
+    },
+    {
+      text: "Though it is regrettable, we must persevere and be strong.",
+      next: 2,
+    },
+    {
+      text: "We must destroy the source of this conflict at all costs.",
+      next: 3,
+    },
+    {
+      text: "I'll contact the Ministry of Security to execute the insurgents.",
+      next: 4,
+    },
+    {
+      text: "[Week 4 has ended.]",
+      next: 5,
+    },
+  ],
+  [
+    {
+      text: "True enough, Chancellor.",
+      next: 1,
+    },
+    {
+      text: "If we allow this to go on any longer, our way of life will be ruined.",
+      next: 2,
+    },
+    {
+      text: "They should be grateful that we're allowing them to live.",
+      next: 3,
+    },
+    {
+      text: "I'll contact the Ministry of Security to exile the insurgents.",
+      next: 4,
+    },
+    {
+      text: "[Week 4 has ended.]",
+      next: 5,
+    },
+  ],
+];
+
+// Week 5 dialogue - rioting
+let dialogueWeek5Start = [
+  {
+    text: "Welcome back, Chancellor.",
+    next: 1,
+  },
+  {
+    text: "The Ministry of Security has notified us of a riot happening in the main square.",
+    next: 2,
+  },
+  {
+    text: "It was precisely how we dealt with the insurgents the previous week that they decided to act up.",
+    next: 3,
+  },
+  {
+    text: "We cannot allow this to go any further.",
+    next: 4,
+  },
+];
+
+// Week 5 choice
+let dialogueWeek5Choice = {
+  question: "How should we diffuse the rioting?",
+  option1: {
+    answer: "Detain the rioters immediately and sentence them to death.",
+    score: -100,
+  },
+  option2: {
+    answer: "Shoot into the crowd and fight back against the rioters.",
+    score: -100,
+  },
+};
+
+// Week 5 ending dialogue
+// An array of arrays, two dialogue trees from two different options
+let dialogueWeek5End = [
+  [
+    {
+      text: "Indeed, Chancellor.",
+      next: 1,
+    },
+    {
+      text: "To think that they would get away with violence while preaching their cause is absurd.",
+      next: 2,
+    },
+    {
+      text: "Nothing less than the death sentence is an appropriate punishment.",
+      next: 3,
+    },
+    {
+      text: "I shall notify the Ministry of Security of the order to detain all in sight of the riot.",
+      next: 4,
+    },
+    {
+      text: "[Week 5 has ended.]",
+      next: 5,
+    },
+  ],
+  [
+    {
+      text: "An extreme route, to be sure, Chancellor.",
+      next: 1,
+    },
+    {
+      text: "But they have striked first, so we must respond in kind.",
+      next: 2,
+    },
+    {
+      text: "We cannot take any more chances with these miscreants.",
+      next: 3,
+    },
+    {
+      text: "I shall notify the Ministry of Security that all bets are off.",
+      next: 4,
+    },
+    {
+      text: "[Week 5 has ended.]",
+      next: 5,
+    },
+  ],
+];
+
+// Week 6 dialogue - civil war
+let dialogueWeek6Start = [
+  {
+    text: "Welcome back, Chancellor.",
+    next: 1,
+  },
+  {
+    text: "The situation has worsened. Our soldiers have been deployed to eliminate these so-called 'Freedom Fighters'.",
+    next: 2,
+  },
+  {
+    text: "We want this war to end quickly.",
+    next: 3,
+  },
+  {
+    text: "The brilliant minds in the Ministry of Security have completed development of our combat artificial intelligence.",
+    next: 4,
+  },
+  {
+    text: "Code named 'Peacekeeper', they will eliminate any threat to peace. We have thousands of units on standby, and they are yours to command.",
+    next: 5,
+  },
+  {
+    text: "Personally, I'd rather avoid needing to resort to this solution.",
+    next: 6,
+  },
+];
+
+// Week 6 choice
+let dialogueWeek6Choice = {
+  question: "Please choose carefully. There may not be a next time.",
+  option1: {
+    answer: "Deploy the Peacekeepers to end the war quickly.",
+    score: -666,
+  },
+  option2: {
+    answer: "Deploy all available battalions and crush the insurgents.",
+    score: -666,
+  },
+};
+
+// Week 6 ending dialogue
+// An array of arrays, two dialogue trees from two different options
+let dialogueWeek6End = [
+  [
+    {
+      text: "...",
+      next: 1,
+    },
+    {
+      text: "I understand your decision, Chancellor.",
+      next: 2,
+    },
+    {
+      text: "Perhaps desperate times call for desperate measures.",
+      next: 3,
+    },
+    {
+      text: "I will relay this information to our frontline tactician at once.",
+      next: 4,
+    },
+    {
+      text: "...",
+      next: 5,
+    },
+    {
+      text: "We probably will not meet again.",
+      next: 6,
+    },
+    {
+      text: "I wish you luck, Chancellor.",
+      next: 7,
+    },
+    {
+      text: "[Week 6 has ended.]",
+      next: 8,
+    },
+  ],
+  [
+    {
+      text: "...",
+      next: 1,
+    },
+    {
+      text: "With our manpower, surely these insurgents do not stand a chance.",
+      next: 2,
+    },
+    {
+      text: "That being said, I will do my part in defending our society.",
+      next: 3,
+    },
+    {
+      text: "I will relay this information to our frontline tactician at once.",
+      next: 4,
+    },
+    {
+      text: "...",
+      next: 5,
+    },
+    {
+      text: "We probably will not meet again.",
+      next: 6,
+    },
+    {
+      text: "I wish you luck, Chancellor.",
+      next: 7,
+    },
+    {
+      text: "[Week 6 has ended.]",
+      next: 8,
+    },
+  ],
+];
+
+// Week 7 dialogue - apocalypse
+let dialogueWeek7Start = [
+  {
+    text: "Your office is decrepit and and destroyed.",
+    next: 1,
+  },
+  {
+    text: "Your assistant is nowhere to be found.",
+    next: 2,
+  },
+  {
+    text: "The Peacekeepers have determined that mankind is a threat to peace.",
+    next: 3,
+  },
+  {
+    text: "All is silent, save for the march of the Peacekeepers and the distant screams of the stragglers.",
+    next: 4,
+  },
+  {
+    text: "On your desk, you see a bloodied standard-issue rifle.",
+    next: 5,
+  },
+];
+
+// Week 7 "choice"
+let dialogueWeek7Choice = {
+  question: "All that's left to do is fight.",
+  option1: {
+    answer: "Pick up the rifle.",
+    score: -999999,
+  },
+};
 
 // Ending dialogue
 let dialogueEnding = [
@@ -308,6 +719,8 @@ function preload() {
   bgm_1 = loadSound("./assets/audio/bgm_1.mp3");
   // Loads main menu image
   mainMenuImg = loadImage("./assets/images/main_menu.png");
+  // Loads mood icon
+  mood = loadImage("./assets/images/mood.png");
 }
 
 function setup() {
@@ -377,7 +790,10 @@ function updateScene() {
 
 // Draws scene and calls any update functions
 function draw() {
+  // Sets background to a dark blue, normally
   background(10, 20, 30);
+  // Resizes mood icon to be smaller
+  mood.resize(100, 100);
   // If main menu toggle is true, show the main menu scene
   if (showMainMenu) {
     // If BGM isn't playing and it's loaded
@@ -392,10 +808,12 @@ function draw() {
   } else {
     // Checks toggles and draws out appropriate scene
     updateScene();
+    // Draws mood icon to the top left corner of the window
+    image(mood, 10, 10);
   }
 }
 
-// Mouse clicked function. Includes several actions that are scene dependant
+// Mouse clicked function. Includes several actions that are scene dependant (mostly logic)
 function mouseClicked() {
   // If the main menu is the current scene
   if (showMainMenu) {
@@ -410,7 +828,7 @@ function mouseClicked() {
     if (nextIndex == dialogueIntro.length) {
       // Sets intro toggle to false
       showIntro = false;
-      // Sets week 1 toggle to true, starting first choice
+      // Sets week 1 start toggle to true
       showWeek1Start = true;
       // Resets current and next index for next block of dialogue
       nextIndex = 0;
@@ -422,13 +840,14 @@ function mouseClicked() {
       loadDialogue(dialogueIntro, currIndex);
     }
   }
+
   // if week 1 start is shown
   if (showWeek1Start) {
     // Checks if we reached end of dialogue week 1 start
     if (nextIndex == dialogueWeek1Start.length) {
-      // Sets intro toggle to false
+      // Sets week 1 start toggle to false
       showWeek1Start = false;
-      // Sets week 1 toggle to true, starting first choice
+      // Sets week 1 choice toggle to true
       showWeek1Choice = true;
       // Resets current and next index for next block of dialogue
       nextIndex = 0;
@@ -463,9 +882,9 @@ function mouseClicked() {
   if (showWeek1End) {
     // Checks if we reached end of dialogue week 1 end
     if (nextIndex == dialogueWeek1End[choice].length) {
-      // Sets intro toggle to false
+      // Sets week 1 end toggle to false
       showWeek1End = false;
-      // Sets week 1 toggle to true, starting first choice
+      // Sets week 2 start toggle to true
       showWeek2Start = true;
       // Resets current and next index for next block of dialogue
       nextIndex = 0;
@@ -482,11 +901,11 @@ function mouseClicked() {
 
   // if week 2 start is shown
   if (showWeek2Start) {
-    // Checks if we reached end of dialogue week 1 start
+    // Checks if we reached end of dialogue week 2 start
     if (nextIndex == dialogueWeek2Start.length) {
-      // Sets intro toggle to false
+      // Sets weel 2 start toggle to false
       showWeek2Start = false;
-      // Sets week 1 toggle to true, starting first choice
+      // Sets week 2 choice toggle to true
       showWeek2Choice = true;
       // Resets current and next index for next block of dialogue
       nextIndex = 0;
@@ -507,7 +926,7 @@ function mouseClicked() {
     if (clickCount >= 2) {
       // Calls pickChoice function
       pickChoice(dialogueWeek2Choice);
-      // Sets choice toggle to false
+      // Sets week 2 choice toggle to false
       showWeek2Choice = false;
       // Shows results of week 2
       showWeek2End = true;
@@ -519,11 +938,11 @@ function mouseClicked() {
   }
   // if week 2 results are shown
   if (showWeek2End) {
-    // Checks if we reached end of dialogue week 1 end
+    // Checks if we reached end of dialogue week 2 end
     if (nextIndex == dialogueWeek2End[choice].length) {
-      // Sets intro toggle to false
+      // Sets week 2 end toggle to false
       showWeek2End = false;
-      // Sets week 1 toggle to true, starting first choice
+      // Sets week 3 start toggle to true
       showWeek3Start = true;
       // Resets current and next index for next block of dialogue
       nextIndex = 0;
@@ -535,6 +954,276 @@ function mouseClicked() {
       currIndex = nextIndex;
       // Calls function to load appropriate dialogue, to advance dialogue
       loadDialogue(dialogueWeek2End[choice], currIndex);
+    }
+  }
+
+  // if week 3 start is shown
+  if (showWeek3Start) {
+    // Checks if we reached end of dialogue week 3 start
+    if (nextIndex == dialogueWeek3Start.length) {
+      // Sets week 3 start toggle to false
+      showWeek3Start = false;
+      // Sets week 3 choice toggle to true
+      showWeek3Choice = true;
+      // Resets current and next index for next block of dialogue
+      nextIndex = 0;
+      currIndex = 0;
+      currentChar = 0;
+    } else {
+      // Sets current index to next index
+      currIndex = nextIndex;
+      // Calls function to load appropriate dialogue, to advance dialogue
+      loadDialogue(dialogueWeek3Start, currIndex);
+    }
+  }
+  // if week 3 choices are shown
+  if (showWeek3Choice) {
+    // Set click counter up by 1
+    clickCount++;
+    // Count up to 2 mouse clicks (on the second click, the choice will be made)
+    if (clickCount >= 2) {
+      // Calls pickChoice function
+      pickChoice(dialogueWeek3Choice);
+      // Sets week 3 choice toggle to false
+      showWeek3Choice = false;
+      // Shows results of week 3
+      showWeek3End = true;
+      // Resets click counter, current and next index for next block of dialogue
+      nextIndex = 0;
+      currIndex = 0;
+      clickCount = 0;
+    }
+  }
+  // if week 3 results are shown
+  if (showWeek3End) {
+    // Checks if we reached end of dialogue week 3 end
+    if (nextIndex == dialogueWeek3End[choice].length) {
+      // Sets week 3 end toggle to false
+      showWeek3End = false;
+      // Sets week 4 start toggle to true
+      showWeek4Start = true;
+      // Resets current and next index for next block of dialogue
+      nextIndex = 0;
+      currIndex = 0;
+      // Puts choice var back to start state
+      choice = -1;
+    } else {
+      // Sets current index to next index
+      currIndex = nextIndex;
+      // Calls function to load appropriate dialogue, to advance dialogue
+      loadDialogue(dialogueWeek3End[choice], currIndex);
+    }
+  }
+
+  // if week 4 start is shown
+  if (showWeek4Start) {
+    // Checks if we reached end of dialogue week 4 start
+    if (nextIndex == dialogueWeek4Start.length) {
+      // Sets week 4 start toggle to false
+      showWeek4Start = false;
+      // Sets week 4 choice toggle to true
+      showWeek4Choice = true;
+      // Resets current and next index for next block of dialogue
+      nextIndex = 0;
+      currIndex = 0;
+      currentChar = 0;
+    } else {
+      // Sets current index to next index
+      currIndex = nextIndex;
+      // Calls function to load appropriate dialogue, to advance dialogue
+      loadDialogue(dialogueWeek4Start, currIndex);
+    }
+  }
+  // if week 4 choices are shown
+  if (showWeek4Choice) {
+    // Set click counter up by 1
+    clickCount++;
+    // Count up to 2 mouse clicks (on the second click, the choice will be made)
+    if (clickCount >= 2) {
+      // Calls pickChoice function
+      pickChoice(dialogueWeek4Choice);
+      // Sets week 4 choice toggle to false
+      showWeek4Choice = false;
+      // Shows results of week 4
+      showWeek4End = true;
+      // Resets click counter, current and next index for next block of dialogue
+      nextIndex = 0;
+      currIndex = 0;
+      clickCount = 0;
+    }
+  }
+  // if week 4 results are shown
+  if (showWeek4End) {
+    // Checks if we reached end of dialogue week 4 end
+    if (nextIndex == dialogueWeek4End[choice].length) {
+      // Sets week 4 end toggle to false
+      showWeek4End = false;
+      // Sets week 5 start toggle to true
+      showWeek5Start = true;
+      // Resets current and next index for next block of dialogue
+      nextIndex = 0;
+      currIndex = 0;
+      // Puts choice var back to start state
+      choice = -1;
+    } else {
+      // Sets current index to next index
+      currIndex = nextIndex;
+      // Calls function to load appropriate dialogue, to advance dialogue
+      loadDialogue(dialogueWeek4End[choice], currIndex);
+    }
+  }
+
+  // if week 5 start is shown
+  if (showWeek5Start) {
+    // Checks if we reached end of dialogue week 5 start
+    if (nextIndex == dialogueWeek5Start.length) {
+      // Sets week 5 start toggle to false
+      showWeek5Start = false;
+      // Sets week 5 choice toggle to true
+      showWeek5Choice = true;
+      // Resets current and next index for next block of dialogue
+      nextIndex = 0;
+      currIndex = 0;
+      currentChar = 0;
+    } else {
+      // Sets current index to next index
+      currIndex = nextIndex;
+      // Calls function to load appropriate dialogue, to advance dialogue
+      loadDialogue(dialogueWeek5Start, currIndex);
+    }
+  }
+  // if week 5 choices are shown
+  if (showWeek5Choice) {
+    // Set click counter up by 1
+    clickCount++;
+    // Count up to 2 mouse clicks (on the second click, the choice will be made)
+    if (clickCount >= 2) {
+      // Calls pickChoice function
+      pickChoice(dialogueWeek5Choice);
+      // Sets week 5 choice toggle to false
+      showWeek5Choice = false;
+      // Shows results of week 5
+      showWeek5End = true;
+      // Resets click counter, current and next index for next block of dialogue
+      nextIndex = 0;
+      currIndex = 0;
+      clickCount = 0;
+    }
+  }
+  // if week 5 results are shown
+  if (showWeek5End) {
+    // Checks if we reached end of dialogue week 5 end
+    if (nextIndex == dialogueWeek5End[choice].length) {
+      // Sets week 5 end toggle to false
+      showWeek5End = false;
+      // Sets week 6 start toggle to true
+      showWeek6Start = true;
+      // Resets current and next index for next block of dialogue
+      nextIndex = 0;
+      currIndex = 0;
+      // Puts choice var back to start state
+      choice = -1;
+    } else {
+      // Sets current index to next index
+      currIndex = nextIndex;
+      // Calls function to load appropriate dialogue, to advance dialogue
+      loadDialogue(dialogueWeek5End[choice], currIndex);
+    }
+  }
+
+  // if week 6 start is shown
+  if (showWeek6Start) {
+    // Checks if we reached end of dialogue week 6 start
+    if (nextIndex == dialogueWeek6Start.length) {
+      // Sets week 6 start toggle to false
+      showWeek6Start = false;
+      // Sets week 6 choice toggle to true
+      showWeek6Choice = true;
+      // Resets current and next index for next block of dialogue
+      nextIndex = 0;
+      currIndex = 0;
+      currentChar = 0;
+    } else {
+      // Sets current index to next index
+      currIndex = nextIndex;
+      // Calls function to load appropriate dialogue, to advance dialogue
+      loadDialogue(dialogueWeek6Start, currIndex);
+    }
+  }
+  // if week 6 choices are shown
+  if (showWeek6Choice) {
+    // Set click counter up by 1
+    clickCount++;
+    // Count up to 2 mouse clicks (on the second click, the choice will be made)
+    if (clickCount >= 2) {
+      // Calls pickChoice function
+      pickChoice(dialogueWeek6Choice);
+      // Sets week 6 choice toggle to false
+      showWeek6Choice = false;
+      // Shows results of week 6
+      showWeek6End = true;
+      // Resets click counter, current and next index for next block of dialogue
+      nextIndex = 0;
+      currIndex = 0;
+      clickCount = 0;
+    }
+  }
+  // if week 6 results are shown
+  if (showWeek6End) {
+    // Checks if we reached end of dialogue week 6 end
+    if (nextIndex == dialogueWeek6End[choice].length) {
+      // Sets week 6 end toggle to false
+      showWeek2End = false;
+      // Sets week 7 start toggle to true
+      showWeek7Start = true;
+      // Resets current and next index for next block of dialogue
+      nextIndex = 0;
+      currIndex = 0;
+      // Puts choice var back to start state
+      choice = -1;
+    } else {
+      // Sets current index to next index
+      currIndex = nextIndex;
+      // Calls function to load appropriate dialogue, to advance dialogue
+      loadDialogue(dialogueWeek6End[choice], currIndex);
+    }
+  }
+
+  // if week 7 start is shown
+  if (showWeek7Start) {
+    // Checks if we reached end of dialogue week 7 start
+    if (nextIndex == dialogueWeek7Start.length) {
+      // Sets week 7 start toggle to false
+      showWeek7Start = false;
+      // Sets week 7 choice toggle to true
+      showWeek7Choice = true;
+      // Resets current and next index for next block of dialogue
+      nextIndex = 0;
+      currIndex = 0;
+      currentChar = 0;
+    } else {
+      // Sets current index to next index
+      currIndex = nextIndex;
+      // Calls function to load appropriate dialogue, to advance dialogue
+      loadDialogue(dialogueWeek7Start, currIndex);
+    }
+  }
+  // if week 7 choices are shown
+  if (showWeek7Choice) {
+    // Set click counter up by 1
+    clickCount++;
+    // Count up to 2 mouse clicks (on the second click, the choice will be made)
+    if (clickCount >= 2) {
+      // Calls pickChoice function
+      pickChoice(dialogueWeek7Choice);
+      // Sets week 7 choice toggle to false
+      showWeek7Choice = false;
+      // Shows ending
+      showEnding = true;
+      // Resets click counter, current and next index for next block of dialogue
+      nextIndex = 0;
+      currIndex = 0;
+      clickCount = 0;
     }
   }
 
@@ -622,7 +1311,7 @@ function intro() {
 
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // Welcome to new job, tutorial (day 1)
@@ -638,10 +1327,11 @@ function week1Start() {
   textAlign(CENTER, TOP);
   // Draws text string
   text(currentString, width / 2, height / 5, width / 1.5);
-
+  // Draws current week number
+  text("Week 1", width - width / 12, 20);
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // Decision to be made in week 1
@@ -654,7 +1344,8 @@ function week1Choice() {
   textAlign(CENTER, TOP);
   // Draws text string
   text(currentQuestion, width / 2, height / 5, width / 1.5);
-
+  // Draws current week number
+  text("Week 1", width - width / 12, 20);
   // Gets option 1 string
   let currentOption1 = dialogueWeek1Choice.option1.answer.substring(
     0,
@@ -674,7 +1365,7 @@ function week1Choice() {
 
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // Shown after choice made in week 1
@@ -690,10 +1381,11 @@ function week1End() {
   textAlign(CENTER, TOP);
   // Draws text string
   text(currentString, width / 2, height / 5, width / 1.5);
-
+  // Draws current week number
+  text("Week 1", width - width / 12, 20);
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // Food supply chain
@@ -709,10 +1401,11 @@ function week2Start() {
   textAlign(CENTER, TOP);
   // Draws text string
   text(currentString, width / 2, height / 5, width / 1.5);
-
+  // Draws current week number
+  text("Week 2", width - width / 12, 20);
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // choice to make in week 2
@@ -725,7 +1418,8 @@ function week2Choice() {
   textAlign(CENTER, TOP);
   // Draws text string
   text(currentQuestion, width / 2, height / 5, width / 1.5);
-
+  // Draws current week number
+  text("Week 2", width - width / 12, 20);
   // Gets option 1 string
   let currentOption1 = dialogueWeek2Choice.option1.answer.substring(
     0,
@@ -745,7 +1439,7 @@ function week2Choice() {
 
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // Shown after choice in week 2
@@ -761,10 +1455,11 @@ function week2End() {
   textAlign(CENTER, TOP);
   // Draws text string
   text(currentString, width / 2, height / 5, width / 1.5);
-
+  // Draws current week number
+  text("Week 2", width - width / 12, 20);
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // Insurgents rising
@@ -780,10 +1475,11 @@ function week3Start() {
   textAlign(CENTER, TOP);
   // Draws text string
   text(currentString, width / 2, height / 5, width / 1.5);
-
+  // Draws current week number
+  text("Week 3", width - width / 12, 20);
   // Increment currentChar by certain value
   // Affects how fast/slow typeqriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // choice to be made to insurgents on week 3
@@ -799,7 +1495,8 @@ function week3Choice() {
   textAlign(CENTER, TOP);
   // Draws text string
   text(currentQuestion, width / 2, height / 5, width / 1.5);
-
+  // Draws current week number
+  text("Week 3", width - width / 12, 20);
   // Gets option 1 string
   let currentOption1 = dialogueWeek3Choice[currIndex].option1.answer.substring(
     0,
@@ -819,7 +1516,7 @@ function week3Choice() {
 
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // Shown after choice made in week 3
@@ -835,10 +1532,11 @@ function week3End() {
   textAlign(CENTER, TOP);
   // Draws text string
   text(currentString, width / 2, height / 5, width / 1.5);
-
+  // Draws current week number
+  text("Week 3", width - width / 12, 20);
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // Caught insurgents, what to do?
@@ -854,10 +1552,11 @@ function week4Start() {
   textAlign(CENTER, TOP);
   // Draws text string
   text(currentString, width / 2, height / 5, width / 1.5);
-
+  // Draws current week number
+  text("Week 4", width - width / 12, 20);
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // choice for week 4
@@ -873,7 +1572,8 @@ function week4Choice() {
   textAlign(CENTER, TOP);
   // Draws text string
   text(currentQuestion, width / 2, height / 5, width / 1.5);
-
+  // Draws current week number
+  text("Week 4", width - width / 12, 20);
   // Gets option 1 string
   let currentOption1 = dialogueWeek4Choice[currIndex].option1.answer.substring(
     0,
@@ -893,7 +1593,7 @@ function week4Choice() {
 
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // Shown after choice made in week 4
@@ -909,10 +1609,11 @@ function week4End() {
   textAlign(CENTER, TOP);
   // Draws text string
   text(currentString, width / 2, height / 5, width / 1.5);
-
+  // Draws current week number
+  text("Week 4", width - width / 12, 20);
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // Violence breaking out at main square, what to do?
@@ -928,10 +1629,11 @@ function week5Start() {
   textAlign(CENTER, TOP);
   // Draws text string
   text(currentString, width / 2, height / 5, width / 1.5);
-
+  // Draws current week number
+  text("Week 5", width - width / 12, 20);
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // Choice to diffuse situation at main square in week 5
@@ -947,7 +1649,8 @@ function week5Choice() {
   textAlign(CENTER, TOP);
   // Draws text string
   text(currentQuestion, width / 2, height / 5, width / 1.5);
-
+  // Draws current week number
+  text("Week 5", width - width / 12, 20);
   // Gets option 1 string
   let currentOption1 = dialogueWeek5Choice[currIndex].option1.answer.substring(
     0,
@@ -967,7 +1670,7 @@ function week5Choice() {
 
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // Shown after choice made in week 5
@@ -983,10 +1686,11 @@ function week5End() {
   textAlign(CENTER, TOP);
   // Draws text string
   text(currentString, width / 2, height / 5, width / 1.5);
-
+  // Draws current week number
+  text("Week 5", width - width / 12, 20);
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // Civil war, Peacekeepers are ready to deploy (either send in more soldiers, or deploy Peacekeepers)
@@ -1002,10 +1706,11 @@ function week6Start() {
   textAlign(CENTER, TOP);
   // Draws text string
   text(currentString, width / 2, height / 5, width / 1.5);
-
+  // Draws current week number
+  text("Week 6", width - width / 12, 20);
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // choice to mitigate civil war in week 6
@@ -1021,7 +1726,8 @@ function week6Choice() {
   textAlign(CENTER, TOP);
   // Draws text string
   text(currentQuestion, width / 2, height / 5, width / 1.5);
-
+  // Draws current week number
+  text("Week 6", width - width / 12, 20);
   // Gets option 1 string
   let currentOption1 = dialogueWeek6Choice[currIndex].option1.answer.substring(
     0,
@@ -1041,7 +1747,7 @@ function week6Choice() {
 
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // Shown after choice made in week 6
@@ -1057,10 +1763,11 @@ function week6End() {
   textAlign(CENTER, TOP);
   // Draws text string
   text(currentString, width / 2, height / 5, width / 1.5);
-
+  // Draws current week number
+  text("Week 6", width - width / 12, 20);
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // One choice: fight
@@ -1072,14 +1779,15 @@ function week7Start() {
   );
   // Sets text size to 40
   textSize(40);
-  // Aligns text center
+  // Aligns text center and top
   textAlign(CENTER, TOP);
   // Draws text string
   text(currentString, width / 2, height / 5, width / 1.5);
-
+  // Draws current week number
+  text("Week 7", width - width / 12, 20);
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // Single choice for week 7
@@ -1091,11 +1799,12 @@ function week7Choice() {
   );
   // Sets text size to 40
   textSize(40);
-  // Aligns text center
+  // Aligns text center and top
   textAlign(CENTER, TOP);
   // Draws text string
   text(currentQuestion, width / 2, height / 5, width / 1.5);
-
+  // Draws current week number
+  text("Week 7", width - width / 12, 20);
   // Gets option string
   let currentOption1 = dialogueWeek6Choice[currIndex].option1.answer.substring(
     0,
@@ -1108,7 +1817,7 @@ function week7Choice() {
 
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
 
 // Shown after the final week, ends with a short epilogue text
@@ -1124,5 +1833,5 @@ function ending() {
 
   // Increment currentChar by certain value
   // Affects how fast/slow typewriter effect is
-  currentChar += 0.2;
+  currentChar += 0.3;
 }
