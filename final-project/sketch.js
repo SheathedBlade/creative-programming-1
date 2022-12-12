@@ -1173,7 +1173,7 @@ function mouseClicked() {
     // Checks if we reached end of dialogue week 6 end
     if (nextIndex == dialogueWeek6End[choice].length) {
       // Sets week 6 end toggle to false
-      showWeek2End = false;
+      showWeek6End = false;
       // Sets week 7 start toggle to true
       showWeek7Start = true;
       // Resets current and next index for next block of dialogue
@@ -1707,7 +1707,7 @@ function week6Start() {
 // choice to mitigate civil war in week 6
 function week6Choice() {
   // Gets current string of dialogue week 6 choice text (for typewriter effect)
-  let currentQuestion = dialogueWeek1Choice.question.substring(0, currentChar);
+  let currentQuestion = dialogueWeek6Choice.question.substring(0, currentChar);
   // Sets text size to 40
   textSize(40);
   // Aligns text center
@@ -1791,7 +1791,7 @@ function week7Choice() {
   // Draws current week number
   text("Week 7", width - width / 12, 20);
   // Gets option string
-  let currentOption1 = dialogueWeek6Choice.option1.answer.substring(
+  let currentOption1 = dialogueWeek7Choice.option1.answer.substring(
     0,
     currentChar
   );
