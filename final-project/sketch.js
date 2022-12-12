@@ -297,7 +297,7 @@ let dialogueWeek3Start = [
     next: 2,
   },
   {
-    text: "That people should be unhappy of how we run things!",
+    text: "To think that people are unhappy of how we run things!",
     next: 3,
   },
   {
@@ -1485,10 +1485,7 @@ function week3Start() {
 // choice to be made to insurgents on week 3
 function week3Choice() {
   // Gets current string of dialogue week 3 choice text (for typewriter effect)
-  let currentQuestion = dialogueWeek3Choice[currIndex].question.substring(
-    0,
-    currentChar
-  );
+  let currentQuestion = dialogueWeek3Choice.question.substring(0, currentChar);
   // Sets text size to 40
   textSize(40);
   // Aligns text center
@@ -1498,12 +1495,12 @@ function week3Choice() {
   // Draws current week number
   text("Week 3", width - width / 12, 20);
   // Gets option 1 string
-  let currentOption1 = dialogueWeek3Choice[currIndex].option1.answer.substring(
+  let currentOption1 = dialogueWeek3Choice.option1.answer.substring(
     0,
     currentChar
   );
   // Gets option 2 string
-  let currentOption2 = dialogueWeek3Choice[currIndex].option2.answer.substring(
+  let currentOption2 = dialogueWeek3Choice.option2.answer.substring(
     0,
     currentChar
   );
@@ -1562,10 +1559,7 @@ function week4Start() {
 // choice for week 4
 function week4Choice() {
   // Gets current string of dialogue week 4 choice text (for typewriter effect)
-  let currentQuestion = dialogueWeek4Choice[currIndex].question.substring(
-    0,
-    currentChar
-  );
+  let currentQuestion = dialogueWeek4Choice.question.substring(0, currentChar);
   // Sets text size to 40
   textSize(40);
   // Aligns text center
@@ -1575,12 +1569,12 @@ function week4Choice() {
   // Draws current week number
   text("Week 4", width - width / 12, 20);
   // Gets option 1 string
-  let currentOption1 = dialogueWeek4Choice[currIndex].option1.answer.substring(
+  let currentOption1 = dialogueWeek4Choice.option1.answer.substring(
     0,
     currentChar
   );
   // Gets option 2 string
-  let currentOption2 = dialogueWeek4Choice[currIndex].option2.answer.substring(
+  let currentOption2 = dialogueWeek4Choice.option2.answer.substring(
     0,
     currentChar
   );
@@ -1639,10 +1633,7 @@ function week5Start() {
 // Choice to diffuse situation at main square in week 5
 function week5Choice() {
   // Gets current string of dialogue week 5 choice text (for typewriter effect)
-  let currentQuestion = dialogueWeek5Choice[currIndex].question.substring(
-    0,
-    currentChar
-  );
+  let currentQuestion = dialogueWeek5Choice.question.substring(0, currentChar);
   // Sets text size to 40
   textSize(40);
   // Aligns text center
@@ -1652,12 +1643,12 @@ function week5Choice() {
   // Draws current week number
   text("Week 5", width - width / 12, 20);
   // Gets option 1 string
-  let currentOption1 = dialogueWeek5Choice[currIndex].option1.answer.substring(
+  let currentOption1 = dialogueWeek5Choice.option1.answer.substring(
     0,
     currentChar
   );
   // Gets option 2 string
-  let currentOption2 = dialogueWeek5Choice[currIndex].option2.answer.substring(
+  let currentOption2 = dialogueWeek5Choice.option2.answer.substring(
     0,
     currentChar
   );
@@ -1716,10 +1707,7 @@ function week6Start() {
 // choice to mitigate civil war in week 6
 function week6Choice() {
   // Gets current string of dialogue week 6 choice text (for typewriter effect)
-  let currentQuestion = dialogueWeek1Choice[currIndex].question.substring(
-    0,
-    currentChar
-  );
+  let currentQuestion = dialogueWeek1Choice.question.substring(0, currentChar);
   // Sets text size to 40
   textSize(40);
   // Aligns text center
@@ -1729,12 +1717,12 @@ function week6Choice() {
   // Draws current week number
   text("Week 6", width - width / 12, 20);
   // Gets option 1 string
-  let currentOption1 = dialogueWeek6Choice[currIndex].option1.answer.substring(
+  let currentOption1 = dialogueWeek6Choice.option1.answer.substring(
     0,
     currentChar
   );
   // Gets option 2 string
-  let currentOption2 = dialogueWeek6Choice[currIndex].option2.answer.substring(
+  let currentOption2 = dialogueWeek6Choice.option2.answer.substring(
     0,
     currentChar
   );
@@ -1793,10 +1781,7 @@ function week7Start() {
 // Single choice for week 7
 function week7Choice() {
   // Gets current string of dialogue week 7 choice text (for typewriter effect)
-  let currentQuestion = dialogueWeek7Choice[currIndex].question.substring(
-    0,
-    currentChar
-  );
+  let currentQuestion = dialogueWeek7Choice.question.substring(0, currentChar);
   // Sets text size to 40
   textSize(40);
   // Aligns text center and top
@@ -1806,7 +1791,7 @@ function week7Choice() {
   // Draws current week number
   text("Week 7", width - width / 12, 20);
   // Gets option string
-  let currentOption1 = dialogueWeek6Choice[currIndex].option1.answer.substring(
+  let currentOption1 = dialogueWeek6Choice.option1.answer.substring(
     0,
     currentChar
   );
