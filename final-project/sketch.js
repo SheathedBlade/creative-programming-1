@@ -56,7 +56,23 @@ let urbanistMedium;
 let bgm_1;
 
 // Initialize all necessary images
-let mainMenuImg, mood;
+let mainMenuImg,
+  mood,
+  default_office,
+  apocalypse,
+  // Everything below are monitor images
+  transactionTax,
+  wealthyTax,
+  bread,
+  groceries,
+  drones,
+  cuffs,
+  guillotine,
+  hitchHiker,
+  deathSentence,
+  riotShield,
+  soldiers,
+  peacekeepers;
 
 // Current character, click counter, current index, and next index
 let currentChar = 0,
@@ -122,16 +138,12 @@ let dialogueWeek1Start = [
     next: 5,
   },
   {
-    text: "Additionally, you may take a look at our current situation in order to correctly decide which policy to enact.",
+    text: "Let's get the ball rolling, shall we?",
     next: 6,
   },
   {
-    text: "Let's get the ball rolling, shall we?",
-    next: 7,
-  },
-  {
     text: "The Ministry of Hospitality has requested funds to construct a new housing district.",
-    next: 8,
+    next: 7,
   },
 ];
 
@@ -506,7 +518,7 @@ let dialogueWeek5End = [
       next: 1,
     },
     {
-      text: "To think that they would get away with violence while preaching their cause is absurd.",
+      text: "To think that they would get away with violence while preaching their cause. I is absurd.",
       next: 2,
     },
     {
@@ -721,6 +733,34 @@ function preload() {
   mainMenuImg = loadImage("./assets/images/main_menu.png");
   // Loads mood icon
   mood = loadImage("./assets/images/mood.png");
+  // Loads default office bg
+  default_office = loadImage("./assets/images/default_office.png");
+  // Loads apocalypse office bg
+  apocalypse = loadImage("./assets/images/apocalypse.png");
+  // Loads transaction tax image
+  transactionTax = loadImage("./assets/images/transaction_tax.png");
+  // Loads wealthy tax image
+  wealthyTax = loadImage("./assets/images/wealthy_tax.png");
+  // Loads bread image
+  bread = loadImage("./assets/images/bread.png");
+  // Loads groceries image
+  groceries = loadImage("./assets/images/grocery.png");
+  // Loads drones image
+  drones = loadImage("./assets/images/drones.png");
+  // Loads cuffs image
+  cuffs = loadImage("./assets/images/arrest.png");
+  // Loads guillotine image
+  guillotine = loadImage("./assets/images/guillotine.png");
+  // Loads hitchHiker image
+  hitchHiker = loadImage("./assets/images/hitchHiker.png");
+  // Loads death sentence image
+  deathSentence = loadImage("./assets/images/electricChair.png");
+  // Loads riot shield image
+  riotShield = loadImage("./assets/images/shield.png");
+  // Loads soldier image
+  soldiers = loadImage("./assets/images/soldier.png");
+  // Loads peacekeepers image
+  peacekeepers = loadImage("./assets/images/peacekeeper.png");
 }
 
 function setup() {
@@ -738,6 +778,23 @@ function setup() {
   angleMode(DEGREES);
   // Sets rectMode to center, makes shapes drawn starting from center
   rectMode(CENTER);
+  // Sets office image to window size
+  default_office.resize(width, height);
+  // Sets apocalypse image to window size
+  apocalypse.resize(width, height);
+  // Sets all monitor images below to match window size
+  transactionTax.resize(width, height);
+  wealthyTax.resize(width, height);
+  bread.resize(width, height);
+  groceries.resize(width, height);
+  drones.resize(width, height);
+  cuffs.resize(width, height);
+  guillotine.resize(width, height);
+  hitchHiker.resize(width, height);
+  deathSentence.resize(width, height);
+  riotShield.resize(width, height);
+  soldiers.resize(width, height);
+  peacekeepers.resize(width, height);
 }
 
 // Changes and updates scenes
@@ -810,6 +867,8 @@ function draw() {
     updateScene();
     // Draws mood icon to the top left corner of the window
     image(mood, 10, 10);
+    textSize(40);
+    text(score, 125, 10);
   }
 }
 
@@ -1316,6 +1375,8 @@ function intro() {
 
 // Welcome to new job, tutorial (day 1)
 function week1Start() {
+  // Draws image
+  image(default_office, 0, 0);
   // Gets current string of dialogue week 1 start text (for typewriter effect)
   let currentString = dialogueWeek1Start[currIndex].text.substring(
     0,
@@ -1336,6 +1397,8 @@ function week1Start() {
 
 // Decision to be made in week 1
 function week1Choice() {
+  // Draws image
+  image(default_office, 0, 0);
   // Gets current string of dialogue week 1 choice text (for typewriter effect)
   let currentQuestion = dialogueWeek1Choice.question.substring(0, currentChar);
   // Sets text size to 40
@@ -1370,6 +1433,18 @@ function week1Choice() {
 
 // Shown after choice made in week 1
 function week1End() {
+  // Depending on choice, draw appropriate image
+  // If choice is 0
+  if (choice == 0)
+    // Draw transaction tax image
+    image(transactionTax, 0, 0);
+  // If choice is 1
+  else if (choice == 1)
+    // Draw wealthy tax image
+    image(wealthyTax, 0, 0);
+
+  // Draws bg image
+  image(default_office, 0, 0);
   // Gets current string of dialogue week 1 end text (for typewriter effect)
   let currentString = dialogueWeek1End[choice][currIndex].text.substring(
     0,
@@ -1390,6 +1465,8 @@ function week1End() {
 
 // Food supply chain
 function week2Start() {
+  // Draws image
+  image(default_office, 0, 0);
   // Gets current string of dialogue week 2 start text (for typewriter effect)
   let currentString = dialogueWeek2Start[currIndex].text.substring(
     0,
@@ -1410,6 +1487,8 @@ function week2Start() {
 
 // choice to make in week 2
 function week2Choice() {
+  // Draws image
+  image(default_office, 0, 0);
   // Gets current string of dialogue week 2 choice text (for typewriter effect)
   let currentQuestion = dialogueWeek2Choice.question.substring(0, currentChar);
   // Sets text size to 40
@@ -1444,6 +1523,18 @@ function week2Choice() {
 
 // Shown after choice in week 2
 function week2End() {
+  // Depending on choice, draw appropriate image
+  // If choice is 0
+  if (choice == 0)
+    // Draw bread image
+    image(bread, 0, 0);
+  // If choice is 1
+  else if (choice == 1)
+    // Draw groceries image
+    image(groceries, 0, 0);
+
+  // Draws bg image
+  image(default_office, 0, 0);
   // Gets current string of dialogue week 2 end text (for typewriter effect)
   let currentString = dialogueWeek2End[choice][currIndex].text.substring(
     0,
@@ -1464,6 +1555,8 @@ function week2End() {
 
 // Insurgents rising
 function week3Start() {
+  // Draws image
+  image(default_office, 0, 0);
   // Gets current string of dialogue week 3 start text (for typewriter effect)
   let currentString = dialogueWeek3Start[currIndex].text.substring(
     0,
@@ -1484,6 +1577,8 @@ function week3Start() {
 
 // choice to be made to insurgents on week 3
 function week3Choice() {
+  // Draws image
+  image(default_office, 0, 0);
   // Gets current string of dialogue week 3 choice text (for typewriter effect)
   let currentQuestion = dialogueWeek3Choice.question.substring(0, currentChar);
   // Sets text size to 40
@@ -1518,6 +1613,18 @@ function week3Choice() {
 
 // Shown after choice made in week 3
 function week3End() {
+  // Depending on choice, draw appropriate image
+  // If choice is 0
+  if (choice == 0)
+    // Draw drones image
+    image(drones, 0, 0);
+  // If choice is 1
+  else if (choice == 1)
+    // Draw cuffs image
+    image(cuffs, 0, 0);
+
+  // Draws bg image
+  image(default_office, 0, 0);
   // Gets current string of dialogue week 3 end text (for typewriter effect)
   let currentString = dialogueWeek3End[choice][currIndex].text.substring(
     0,
@@ -1538,6 +1645,8 @@ function week3End() {
 
 // Caught insurgents, what to do?
 function week4Start() {
+  // Draws image
+  image(default_office, 0, 0);
   // Gets current string of dialogue week 4 start text (for typewriter effect)
   let currentString = dialogueWeek4Start[currIndex].text.substring(
     0,
@@ -1558,6 +1667,8 @@ function week4Start() {
 
 // choice for week 4
 function week4Choice() {
+  // Draws image
+  image(default_office, 0, 0);
   // Gets current string of dialogue week 4 choice text (for typewriter effect)
   let currentQuestion = dialogueWeek4Choice.question.substring(0, currentChar);
   // Sets text size to 40
@@ -1592,6 +1703,18 @@ function week4Choice() {
 
 // Shown after choice made in week 4
 function week4End() {
+  // Depending on choice, draw appropriate image
+  // If choice is 0
+  if (choice == 0)
+    // Draw guillotine image
+    image(guillotine, 0, 0);
+  // If choice is 1
+  else if (choice == 1)
+    // Draw hitchHiker image
+    image(hitchHiker, 0, 0);
+
+  // Draws bg image
+  image(default_office, 0, 0);
   // Gets current string of dialogue week 4 end text (for typewriter effect)
   let currentString = dialogueWeek4End[choice][currIndex].text.substring(
     0,
@@ -1612,6 +1735,8 @@ function week4End() {
 
 // Violence breaking out at main square, what to do?
 function week5Start() {
+  // Draws image
+  image(default_office, 0, 0);
   // Gets current string of dialogue week 5 start text (for typewriter effect)
   let currentString = dialogueWeek5Start[currIndex].text.substring(
     0,
@@ -1632,6 +1757,8 @@ function week5Start() {
 
 // Choice to diffuse situation at main square in week 5
 function week5Choice() {
+  // Draws image
+  image(default_office, 0, 0);
   // Gets current string of dialogue week 5 choice text (for typewriter effect)
   let currentQuestion = dialogueWeek5Choice.question.substring(0, currentChar);
   // Sets text size to 40
@@ -1666,6 +1793,18 @@ function week5Choice() {
 
 // Shown after choice made in week 5
 function week5End() {
+  // Depending on choice, draw appropriate image
+  // If choice is 0
+  if (choice == 0)
+    // Draw death sentence image
+    image(deathSentence, 0, 0);
+  // If choice is 1
+  else if (choice == 1)
+    // Draw shield image
+    image(riotShield, 0, 0);
+
+  // Draws bg image
+  image(default_office, 0, 0);
   // Gets current string of dialogue week 5 end text (for typewriter effect)
   let currentString = dialogueWeek5End[choice][currIndex].text.substring(
     0,
@@ -1686,6 +1825,8 @@ function week5End() {
 
 // Civil war, Peacekeepers are ready to deploy (either send in more soldiers, or deploy Peacekeepers)
 function week6Start() {
+  // Draws image
+  image(default_office, 0, 0);
   // Gets current string of dialogue week 6 start text (for typewriter effect)
   let currentString = dialogueWeek6Start[currIndex].text.substring(
     0,
@@ -1706,6 +1847,8 @@ function week6Start() {
 
 // choice to mitigate civil war in week 6
 function week6Choice() {
+  // Draws image
+  image(default_office, 0, 0);
   // Gets current string of dialogue week 6 choice text (for typewriter effect)
   let currentQuestion = dialogueWeek6Choice.question.substring(0, currentChar);
   // Sets text size to 40
@@ -1740,6 +1883,18 @@ function week6Choice() {
 
 // Shown after choice made in week 6
 function week6End() {
+  // Depending on choice, draw appropriate image
+  // If choice is 0
+  if (choice == 0)
+    // Draw peacekeepers image
+    image(peacekeepers, 0, 0);
+  // If choice is 1
+  else if (choice == 1)
+    // Draw soldiers image
+    image(soldiers, 0, 0);
+
+  // Draws bg image
+  image(default_office, 0, 0);
   // Gets current string of dialogue week 6 end text (for typewriter effect)
   let currentString = dialogueWeek6End[choice][currIndex].text.substring(
     0,
@@ -1760,6 +1915,8 @@ function week6End() {
 
 // One choice: fight
 function week7Start() {
+  // Draws image
+  image(apocalypse, 0, 0);
   // Gets current string of dialogue week 7 start text (for typewriter effect)
   let currentString = dialogueWeek7Start[currIndex].text.substring(
     0,
@@ -1780,6 +1937,8 @@ function week7Start() {
 
 // Single choice for week 7
 function week7Choice() {
+  // Draws image
+  image(apocalypse, 0, 0);
   // Gets current string of dialogue week 7 choice text (for typewriter effect)
   let currentQuestion = dialogueWeek7Choice.question.substring(0, currentChar);
   // Sets text size to 40
