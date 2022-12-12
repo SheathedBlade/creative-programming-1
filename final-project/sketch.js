@@ -1214,8 +1214,8 @@ function mouseClicked() {
     clickCount++;
     // Count up to 2 mouse clicks (on the second click, the choice will be made)
     if (clickCount >= 2) {
-      // Calls pickChoice function
-      pickChoice(dialogueWeek7Choice);
+      // Calls score update to update score
+      updateScore(dialogueWeek7Choice.option1.score);
       // Sets week 7 choice toggle to false
       showWeek7Choice = false;
       // Shows ending
